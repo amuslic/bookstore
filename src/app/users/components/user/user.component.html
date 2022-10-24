@@ -15,40 +15,34 @@
             <hr class="title-bar" />
             <label for="lastName">Last Name</label>
             <input name="name" formControlName="lastName" placeholder="Enter Last Name" type="name" required>
-            <div *ngIf="formErrors.lastName" class="err-msg">
-              Last name is required
+            <div class="form-control-feedback" *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
+              <p class="err-msg" *ngIf="lastName.errors.required">Last name is required</p>
             </div>
             <label for="firstName">First Name</label>
             <input name="name" formControlName="firstName" placeholder="Enter Name" type="name" required>
-            <div *ngIf="formErrors.firstName" class="err-msg">
-              First name is required
+            <div class="form-control-feedback" *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
+              <p class="err-msg" *ngIf="firstName.errors.required">First name is required</p>
             </div>
             <label for="phoneNumber">Phone Number</label>
             <input name="phone" formControlName="phoneNumber" placeholder="Enter phone number" type="name" required>
-            <div *ngIf="formErrors.phoneNumber" class="err-msg">
-              Phone number is required
-            </div>
-            <div *ngIf="formErrors.phoneNumber" class="err-msg">
-              A valid phone number is required: ex. 5555555555
+            <div class="form-control-feedback" *ngIf="phoneNumber.errors && (phoneNumber.dirty || phoneNumber.touched)">
+              <p class="err-msg" *ngIf="phoneNumber.errors.required">Phone number is required</p>
             </div>
             <label for="emailAddress">Email</label>
-            <input name="emailAddress" formControlName="emailAddress" placeholder="Enter email" type="name" 
-              required>
-            <div *ngIf="formErrors.emailAddress" class="err-msg">
-              Email is required
+            <input name="emailAddress" formControlName="emailAddress" placeholder="Enter email" type="name" required>
+            <div class="form-control-feedback"
+              *ngIf="emailAddress.errors && (emailAddress.dirty || emailAddress.touched)">
+              <p class="err-msg" *ngIf="emailAddress.errors.required">Email is required</p>
+              <p class="err-msg" *ngIf="emailAddress.errors.pattern">The email address must contain at least the @
+                character</p>
             </div>
-            <div *ngIf="formErrors.emailAddress" class="err-msg">
-              A valid email is required
-            </div>
-
             <label for="dateOfBirth">Date of Birth</label>
-            <input name="dateOfBirth" formControlName="dateOfBirth" placeholder="Choose birth date" type="date"
-              required>
+            <input matInput name="dateOfBirth" formControlName="dateOfBirth" [min]="minDate" [max]="maxDate" type="date"
+              placeholder="Choose birth date" required>
             <mat-datepicker #picker></mat-datepicker>
-            <div *ngIf="formErrors.dateOfBirth" class="err-msg">
-              Birth date is required
+            <div class="form-control-feedback" *ngIf="dateOfBirth.errors && (dateOfBirth.dirty || dateOfBirth.touched)">
+              <p class="err-msg" *ngIf="dateOfBirth.errors.required">Date of birth is required</p>
             </div>
-
             <button (click)="onSubmit()" class="next square" name="button">Submit</button>
             <div class="foot-space"></div>
           </div>

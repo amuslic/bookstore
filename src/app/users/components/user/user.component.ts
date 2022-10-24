@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserModel } from '../../models/user-model';
-import { FormService } from '../../services/form-validator.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -15,6 +14,9 @@ export class UserComponent implements OnInit {
   users: UserModel[] = [];
   isEditMode: boolean = false;
   userForm!: FormGroup;
+  minDate: Date;
+  maxDate: Date;
+
 
   firstName!: FormControl;
   lastName!: FormControl;
@@ -32,8 +34,11 @@ export class UserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private formService: FormService,
     private snackBar: MatSnackBar) {
+
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 200, 0, 1);
+    this.maxDate = new Date(currentYear -7);
   }
 
   ngOnInit(): void {
@@ -43,8 +48,6 @@ export class UserComponent implements OnInit {
   }
 
   public async onSubmit() {
-    this.formService.markFormGroupTouched(this.userForm);
-    debugger;
     if (this.userForm.valid) {
       const httpResponse = await this.userService.createUser(this.userForm).toPromise();;
       if (httpResponse != null && httpResponse.success) {
@@ -57,9 +60,6 @@ export class UserComponent implements OnInit {
       this.userForm.reset();
       this.onEdit();
     }
-    else {
-      this.formErrors = this.formService.validateForm(this.userForm, this.formErrors, false)
-    }
   }
 
   createFormControls() {
@@ -67,9 +67,12 @@ export class UserComponent implements OnInit {
     this.lastName = new FormControl('', Validators.required);
     this.dateOfBirth = new FormControl('', Validators.required);
     this.emailAddress = new FormControl('', [
+      Validators.required,
+      Validators.pattern("[^ @]*@[^ @]*"),
+    ]);
+    this.phoneNumber = new FormControl('', [
       Validators.required
     ]);
-    this.phoneNumber = new FormControl('', Validators.required);
   }
 
   createForm() {
