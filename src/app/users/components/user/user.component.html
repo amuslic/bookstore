@@ -44,7 +44,6 @@
             <label for="dateOfBirth">Date of Birth</label>
             <input name="dateOfBirth" formControlName="dateOfBirth" placeholder="Choose birth date" type="date"
               required>
-            <input matInput [matDatepicker]="picker">
             <mat-datepicker #picker></mat-datepicker>
             <div *ngIf="formErrors.dateOfBirth" class="err-msg">
               Birth date is required

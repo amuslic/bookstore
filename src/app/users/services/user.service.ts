@@ -26,7 +26,7 @@ export class UserService {
   }
 
    createUser(request: FormGroup): Observable<NonEmptyResponse<any>> {
-
+    debugger;
     //make conversion from form group to request model
     const endpointUrl = this.settings.keys.user.createUser;
 
