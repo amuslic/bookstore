@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserModel } from './../../models/user-model';
 
 @Component({
@@ -6,12 +6,12 @@ import { UserModel } from './../../models/user-model';
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.css']
 })
-export class UserTableComponent {
+export class UserTableComponent implements OnInit {
 
-  constructor() { }
   @Input() users: UserModel[] = [];
+  displayedColumns: string[] = [];
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = this.users;
+  ngOnInit(): void {
+    this.displayedColumns = ['firstName', 'lastName', 'dateOfBirth', 'emailAddress', 'phoneNumber'];
+  }
 }
-

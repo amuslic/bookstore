@@ -1,43 +1,63 @@
-<div>
-  <h3>Users</h3>
-
-  <div>
-    <app-user-table [users] = "users"></app-user-table>
+<div fxLayout="column">
+  <h1 class="title">Users</h1>
+  <div class="user-table">
+    <app-user-table [users]="users"></app-user-table>
   </div>
 
-  <button (click)="onEdit()">Edit</button>
-  <div *ngIf="isEditMode">
-    <form novalidate [formGroup]="userForm">
-      <div class="form-group" [ngClass]="{
-     'has-danger': email.invalid && (email.dirty || email.touched),
-     'has-success': email.valid && (email.dirty || email.touched)
-}">
-        <label>Email</label>
-        <input type="email" class="form-control" formControlName="email" required>
-        <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
-          <p *ngIf="email.errors.required">Email is required</p>
-          <p *ngIf="email.errors.pattern">The email address must contain at least the @ character</p>
+  <div class="create-new-user" fxLayout="column">
+    <button *ngIf="!isEditMode" mat-raised-button (click)="onEdit()">Add new user</button>
+
+    <div *ngIf="isEditMode">
+      <form [formGroup]="userForm" class="form">
+        <div class="wrapper">
+          <div class="create-new-user-form">
+            <h3>Create New User</h3>
+            <hr class="title-bar" />
+            <label for="lastName">Last Name</label>
+            <input name="name" formControlName="lastName" placeholder="Enter Last Name" type="name" required>
+            <div *ngIf="formErrors.lastName" class="err-msg">
+              Last name is required
+            </div>
+            <label for="firstName">First Name</label>
+            <input name="name" formControlName="firstName" placeholder="Enter Name" type="name" required>
+            <div *ngIf="formErrors.firstName" class="err-msg">
+              First name is required
+            </div>
+            <label for="phoneNumber">Phone Number</label>
+            <input name="phone" formControlName="phoneNumber" placeholder="Enter phone number" type="name" required>
+            <div *ngIf="formErrors.phoneNumber" class="err-msg">
+              Phone number is required
+            </div>
+            <div *ngIf="formErrors.phoneNumber" class="err-msg">
+              A valid phone number is required: ex. 5555555555
+            </div>
+            <label for="emailAddress">Email</label>
+            <input name="emailAddress" formControlName="emailAddress" placeholder="Enter email" type="name" email
+              required>
+            <div *ngIf="formErrors.emailAddress" class="err-msg">
+              Email is required
+            </div>
+            <div *ngIf="formErrors.emailAddress" class="err-msg">
+              A valid email is required
+            </div>
+
+            <label for="dateOfBirth">Date of Birth</label>
+            <input name="dateOfBirth" formControlName="dateOfBirth" placeholder="Choose birth date" type="name" email
+              required>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <div *ngIf="formErrors.dateOfBirth" class="err-msg">
+              Email is required
+            </div>
+            <div *ngIf="formErrors.dateOfBirth" class="err-msg">
+              A valid email is required
+            </div>
+
+            <button (click)="onSubmit()" class="next square" name="button">Submit</button>
+            <div class="foot-space"></div>
+          </div>
         </div>
-      </div>
-      <div class="form-group" [ngClass]="{
-      'has-danger': firstName.invalid && (firstName.dirty || firstName.touched),
-      'has-success': firstName.valid && (firstName.dirty || firstName.touched)
- }">
-        <label>First Name</label>
-        <input type="text" class="form-control" formControlName="firstName" required>
-        <div class="form-control-feedback" *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
-          <p *ngIf="firstName.errors.required">First Name is required</p>
-        </div>
-      </div>
-      <div class="form-group" [ngClass]="{
-      'has-danger': email.invalid && (email.dirty || email.touched),
-      'has-success': email.valid && (email.dirty || email.touched)
- }">
-        <label>Last Name</label>
-        <input type="test" class="form-control" formControlName="lastName" required>
-        <div class="form-control-feedback" *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
-          <p *ngIf="lastName.errors.required">Last Name is required</p>
-        </div>
-      </div>
-    </form>`
+      </form>
+    </div>
   </div>

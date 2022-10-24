@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { catchError, map, Observable, of } from 'rxjs';
 import { UserModel } from '../models/user-model';
 import { NonEmptyResponse } from '../shared-modules/models/none-empty.response';
@@ -17,14 +18,16 @@ export class UserService {
 
   getHeroes(): UserModel[] {
     var sampleData: UserModel[] = [
-      { firstName: "John", lastName: "Wick", dateOfBirth: "2022-09-09" },
-      { firstName: "Kate", lastName: "Winslet", dateOfBirth: "2022-09-09" },
-      { firstName: "Brad", lastName: "Pitt", dateOfBirth: "2022-09-09" },
+      { firstName: "John", lastName: "Wick", dateOfBirth: "2022-09-09", phoneNumber: "12345", emailAddress:"example@gmail.com" },
+      { firstName: "Kate", lastName: "Winslet", dateOfBirth: "2022-09-09", phoneNumber: "12345", emailAddress:"example@gmail.com" },
+      { firstName: "Brad", lastName: "Pitt", dateOfBirth: "2022-09-09", phoneNumber: "12345", emailAddress:"example@gmail.com" },
     ];
     return sampleData;
   }
 
-  createUser(request: UserModel): Observable<NonEmptyResponse<object>> {
+   createUser(request: FormGroup): Observable<NonEmptyResponse<any>> {
+
+    //make conversion from form group to request model
     const endpointUrl = this.settings.keys.user.createUser;
 
     return this.http
@@ -37,6 +40,4 @@ export class UserService {
         })
       );
   }
-
-
 }
