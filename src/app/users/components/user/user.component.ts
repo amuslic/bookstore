@@ -47,14 +47,15 @@ export class UserComponent implements OnInit {
       const httpResponse = await this.userService.createUser(this.userForm).toPromise();;
       if (httpResponse != null && httpResponse.success) {
         debugger;
-        this.userForm.reset();
-        this.onEdit();
+       
         debugger;
         //mat snack bar service for success
       } else {
         debugger;
         //mat snack bar service for error
       }
+      this.userForm.reset();
+      this.onEdit();
     }
     else {
       this.formErrors = this.formService.validateForm(this.userForm, this.formErrors, false)
