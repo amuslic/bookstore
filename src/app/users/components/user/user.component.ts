@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserModel } from '../../models/user-model';
 import { FormService } from '../../services/form-validator.service';
 import { UserService } from '../../services/user.service';
@@ -31,7 +32,8 @@ export class UserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private formService: FormService) {
+    private formService: FormService,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -46,13 +48,11 @@ export class UserComponent implements OnInit {
     if (this.userForm.valid) {
       const httpResponse = await this.userService.createUser(this.userForm).toPromise();;
       if (httpResponse != null && httpResponse.success) {
-        debugger;
-       
-        debugger;
-        //mat snack bar service for success
+        debugger;     
+        this.openSnackBar("Succesfully created user", "Ok" )
+        
       } else {
-        debugger;
-        //mat snack bar service for error
+        this.openSnackBar("Error trying to create user", "Ok" )
       }
       this.userForm.reset();
       this.onEdit();
@@ -84,5 +84,9 @@ export class UserComponent implements OnInit {
 
   onEdit(): void {
     this.isEditMode = !this.isEditMode
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action);
   }
 }
