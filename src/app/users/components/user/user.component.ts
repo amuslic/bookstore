@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserModel } from '../../models/user-model';
 import { FormService } from '../../services/form-validator.service';
 import { UserService } from '../../services/user.service';
-import { NonEmptyResponse } from '../../shared-modules/models/none-empty.response';
+
 @Component({
   selector: 'app-users',
   templateUrl: './user.component.html',
@@ -53,7 +53,6 @@ export class UserComponent implements OnInit {
     else {
       this.formErrors = this.formService.validateForm(this.userForm, this.formErrors, false)
     }
-    this.onEdit();
   }
 
   createFormControls() {
@@ -61,8 +60,7 @@ export class UserComponent implements OnInit {
     this.lastName = new FormControl('', Validators.required);
     this.dateOfBirth = new FormControl('', Validators.required);
     this.emailAddress = new FormControl('', [
-      Validators.required,
-      Validators.pattern("[^ @]*@[^ @]*")
+      Validators.required
     ]);
     this.phoneNumber = new FormControl('', Validators.required);
   }

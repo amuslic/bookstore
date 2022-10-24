@@ -32,7 +32,7 @@
               A valid phone number is required: ex. 5555555555
             </div>
             <label for="emailAddress">Email</label>
-            <input name="emailAddress" formControlName="emailAddress" placeholder="Enter email" type="name" email
+            <input name="emailAddress" formControlName="emailAddress" placeholder="Enter email" type="name" 
               required>
             <div *ngIf="formErrors.emailAddress" class="err-msg">
               Email is required
@@ -42,16 +42,12 @@
             </div>
 
             <label for="dateOfBirth">Date of Birth</label>
-            <input name="dateOfBirth" formControlName="dateOfBirth" placeholder="Choose birth date" type="name" email
+            <input name="dateOfBirth" formControlName="dateOfBirth" placeholder="Choose birth date" type="date"
               required>
             <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <div *ngIf="formErrors.dateOfBirth" class="err-msg">
-              Email is required
-            </div>
-            <div *ngIf="formErrors.dateOfBirth" class="err-msg">
-              A valid email is required
+              Birth date is required
             </div>
 
             <button (click)="onSubmit()" class="next square" name="button">Submit</button>
