@@ -42,6 +42,7 @@ export class UserComponent implements OnInit {
 
   public async onSubmit() {
     this.formService.markFormGroupTouched(this.userForm);
+    debugger;
     if (this.userForm.valid) {
       const httpResponse = await this.userService.createUser(this.userForm).toPromise();;
       if (httpResponse != null && httpResponse.success) {
