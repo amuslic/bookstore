@@ -1,4 +1,4 @@
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../../models/user-model';
 import { UserService } from '../../services/user.service';
@@ -20,7 +20,6 @@ export class UserComponent implements OnInit {
   email!: FormControl;
 
   constructor( 
-    private formBuilder: FormBuilder,
     private userService: UserService) { 
     }
 
